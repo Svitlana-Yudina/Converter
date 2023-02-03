@@ -1,43 +1,9 @@
-/* eslint-disable no-console */
-import React, { useCallback, useEffect, useState } from 'react';
-import { Curr } from '../types/currency';
-// import { NeadedCurrensy } from '../types/currency';
-import { request } from '../utils/fetch';
+import React, { useContext } from 'react';
+import { CurrencyContext } from '../CurrensyContext/CurrencyContext';
 import './Header.scss';
 
 export const Header: React.FC = () => {
-  const neededCurrensy = ['UAH', 'USD', 'EUR', 'PLN'];
-  const [rates, setRates] = useState<Curr[]>([]);
-
-  // console.log(fetch('https://bank.gov.ua/NBU_Exchange/exchange?json'));
-
-  const getRates = useCallback(async() => {
-    try {
-      const dataObj = await request();
-
-      const arrData = Object
-        .entries(dataObj.rates)
-        .filter(el => neededCurrensy.includes(el[0]))
-        .map(el => {
-          return {
-            currency: el[0],
-            buy: Math.round(el[1] * 100) / 100,
-            sale: Math.round(el[1] * 110) / 100,
-            amount: el[1],
-          };
-        });
-
-      console.log(arrData);
-
-      setRates(arrData);
-    } catch {
-      throw new Error('Error loading rates');
-    }
-  }, []);
-
-  useEffect(() => {
-    getRates();
-  }, []);
+  const { rates } = useContext(CurrencyContext);
 
   return (
     <div className="header">
