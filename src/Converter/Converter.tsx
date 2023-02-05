@@ -55,7 +55,6 @@ export const Converter: React.FC = () => {
     const currentInputValue = Number(event.target.value);
 
     setFirstAmount(currentInputValue);
-    console.log(currentInputValue, firstAmount);
 
     if (firstSelect === secondSelect) {
       setSecondAmount(currentInputValue);
