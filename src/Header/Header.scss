@@ -1,0 +1,25 @@
+.header {
+  font-family: Arial, Helvetica, sans-serif;
+
+  &__title {
+    padding-bottom: 10px;
+    font-size: 24px;
+    text-shadow: 2px 2px #748596;
+    text-align: center;
+  }
+
+  .exchange-rates {
+    padding-bottom: 20px;
+    width: 90%;
+    text-align: center;
+
+    .title {
+      font-size: 15px;
+    }
+
+    .content {
+      font-size: 15px;
+      border-bottom: 1px solid gray;
+    }
+  }
+}

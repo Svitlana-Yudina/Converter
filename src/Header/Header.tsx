@@ -9,21 +9,21 @@ export const Header: React.FC = () => {
     <div className="header">
       <h1 className="header__title">Exchange Rates</h1>
       <table className="exchange-rates">
-        <thead>
+        <thead className="table__head">
           <tr>
-            <th>Currency</th>
-            <th>Buy</th>
-            <th>Sale</th>
+            <th className="title">Currency</th>
+            <th className="title">Buy</th>
+            <th className="title">Sale</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="table__body">
           {rates.map(rate => {
             if (rate.currency !== 'USD') {
               return (
                 <tr key={rate.currency}>
-                  <td>{rate.currency}</td>
-                  <td>{rate.buy}</td>
-                  <td>{rate.sale}</td>
+                  <td className="content">{rate.currency}</td>
+                  <td className="content">{rate.buy}</td>
+                  <td className="content">{rate.sale}</td>
                 </tr>
               );
             }

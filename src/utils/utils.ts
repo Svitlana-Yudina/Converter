@@ -16,7 +16,7 @@ export function filterAndFormat(currList: string[], data: object): Curr[] {
       return {
         currency: el[0],
         buy: Math.round(el[1] * 100) / 100,
-        sale: Math.round(el[1] * 110) / 100,
+        sale: Math.round(el[1] * 105) / 100,
       };
     });
 

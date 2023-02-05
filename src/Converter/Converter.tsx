@@ -1,8 +1,9 @@
+/* eslint-disable no-console */
 /* eslint-disable max-len */
 /* eslint-disable no-shadow */
 import React, { useContext, useState } from 'react';
 import { CurrencyContext } from '../CurrensyContext/CurrencyContext';
-import { getRate } from '../utils/utils';
+import { getRate, roundResult } from '../utils/utils';
 import './Converter.scss';
 
 export const Converter: React.FC = () => {
@@ -19,12 +20,13 @@ export const Converter: React.FC = () => {
       setSecondAmount(firstAmount);
     } else if (event.target.value === 'USD') {
       const exchange = getRate(secondSelect, rates);
+      const result = roundResult(firstAmount * exchange);
 
-      setSecondAmount(firstAmount * exchange);
+      setSecondAmount(result);
     } else {
       const firstExch = getRate(event.target.value, rates);
       const secondExch = getRate(secondSelect, rates);
-      const result = firstAmount / firstExch * secondExch;
+      const result = roundResult(firstAmount / firstExch * secondExch);
 
       setSecondAmount(result);
     }
@@ -37,12 +39,13 @@ export const Converter: React.FC = () => {
       setSecondAmount(firstAmount);
     } else if (firstSelect === 'USD') {
       const exchange = getRate(event.target.value, rates);
+      const result = roundResult(firstAmount * exchange);
 
-      setSecondAmount(firstAmount * exchange);
+      setSecondAmount(result);
     } else {
       const firstExch = getRate(firstSelect, rates);
       const secondExch = getRate(event.target.value, rates);
-      const result = firstAmount / firstExch * secondExch;
+      const result = roundResult(firstAmount / firstExch * secondExch);
 
       setSecondAmount(result);
     }
@@ -52,17 +55,19 @@ export const Converter: React.FC = () => {
     const currentInputValue = Number(event.target.value);
 
     setFirstAmount(currentInputValue);
+    console.log(currentInputValue, firstAmount);
 
     if (firstSelect === secondSelect) {
       setSecondAmount(currentInputValue);
     } else if (firstSelect === 'USD') {
       const exchange = getRate(secondSelect, rates);
+      const result = roundResult(currentInputValue * exchange);
 
-      setSecondAmount(currentInputValue * exchange);
+      setSecondAmount(result);
     } else {
       const firstExch = getRate(firstSelect, rates);
       const secondExch = getRate(secondSelect, rates);
-      const result = currentInputValue / firstExch * secondExch;
+      const result = roundResult(currentInputValue / firstExch * secondExch);
 
       setSecondAmount(result);
     }
@@ -77,12 +82,13 @@ export const Converter: React.FC = () => {
       setFirstAmount(currentInputValue);
     } else if (firstSelect === 'USD') {
       const exchange = getRate(secondSelect, rates);
+      const result = roundResult(currentInputValue * exchange);
 
-      setFirstAmount(currentInputValue * exchange);
+      setFirstAmount(result);
     } else {
       const firstExch = getRate(firstSelect, rates);
       const secondExch = getRate(secondSelect, rates);
-      const result = currentInputValue / firstExch * secondExch;
+      const result = roundResult(currentInputValue / firstExch * secondExch);
 
       setFirstAmount(result);
     }
@@ -90,17 +96,19 @@ export const Converter: React.FC = () => {
 
   return (
     <div className="converter">
-      <div className="converter_currency">
+      <div className="converter__currency">
         <input
           type="number"
           value={firstAmount}
           onChange={handleFirstInput}
+          className="converter__input"
         />
         <select
           name="curr1"
           id="curr1"
           value={firstSelect}
           onChange={handleFirstSelect}
+          className="converter__select"
         >
           {currensyList.map(currensy => (
             <option key={currensy} value={currensy}>
@@ -110,17 +118,19 @@ export const Converter: React.FC = () => {
         </select>
       </div>
 
-      <div className="converter_currency">
+      <div className="converter__currency">
         <input
           type="number"
           value={secondAmount}
           onChange={handleSecondInput}
+          className="converter__input"
         />
         <select
           name="curr2"
           id="curr2"
           value={secondSelect}
           onChange={handleSecondSelect}
+          className="converter__select"
         >
           {currensyList.map(currensy => (
             <option key={currensy} value={currensy}>
